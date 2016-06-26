@@ -34,7 +34,7 @@
      * @param {Object} opts - Options object
      */
     function _applyRemainingDefaultOptions(opts) {
-      opts.placement = opts.hasOwnProperty('placement') ? opts.placement : 'before'; // Also accepts 'after'
+      opts.placement = opts.hasOwnProperty('placement') ? opts.placement : 'after'; // Also accepts 'before'
       opts.class = opts.hasOwnProperty('class') ? opts.class : ''; // Accepts any class name.
       // Using Math.floor here will ensure the value is Number-cast and an integer.
       opts.truncate = opts.hasOwnProperty('truncate') ? Math.floor(opts.truncate) : 64; // Accepts any value that can be typecast to a number.
