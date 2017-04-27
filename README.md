@@ -4,7 +4,7 @@ A JavaScript utility for adding deep anchor links ([like these](http://ux.stacke
 
 **[See Live Examples in the Documentation](http://bryanbraun.github.io/anchorjs#examples).**
 
-![Anchoring links](http://bryanbraun.com/sites/default/files/anchoring-links_0.png)
+![Anchoring links](docs/img/anchoring-links.png)
 
 ## Installation
 
@@ -30,7 +30,7 @@ Then include the anchor.js file (or anchor.min.js) in your webpage.
 
 You could also include it via a CDN like [CDNJS](https://cdnjs.com/libraries/anchor-js) or [jsDelivr](http://www.jsdelivr.com/projects/anchorjs).
 
-##Usage
+## Usage
 See **[the Documentation](http://bryanbraun.github.io/anchorjs#basic-usage)** for detailed instructions.
 
 ## Compatibility

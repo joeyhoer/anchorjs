@@ -1,6 +1,6 @@
 {
   "name": "anchor-js",
-  "version": "3.2.0",
+  "version": "3.2.2",
   "main": "anchor.js",
   "author": "bryanbraun (https://github.com/bryanbraun)",
   "description": "A Javscript utility for adding deep anchor links to online docs.",
@@ -16,17 +16,19 @@
   "scripts": {
     "lint": "eslint anchor.js test/spec/AnchorSpec.js",
     "jasmine": "karma start test/config.js --single-run",
-    "release": "uglifyjs anchor.js --compress --mangle --screw-ie8 --comments \"/Copyright/\" -o anchor.min.js",
+    "release": "npm run uglify && npm run add-banner && cp anchor.js docs/anchor.js",
+    "add-banner": "node banner.js",
+    "uglify": "uglifyjs anchor.js --compress --mangle --screw-ie8 --comments \"/Copyright/\" -o anchor.min.js",
     "test": "npm run lint && npm run jasmine"
   },
   "devDependencies": {
-    "eslint": "~2.11.1",
-    "jasmine-core": "~2.4.1",
-    "karma": "~0.13.22",
-    "karma-cli": "~1.0.0",
-    "karma-jasmine": "~1.0.2",
-    "karma-phantomjs-launcher": "~1.0.0",
-    "phantomjs-prebuilt": "~2.1.7",
-    "uglify-js": "~2.6.2"
+    "eslint": "~3.16.1",
+    "jasmine-core": "~2.5.2",
+    "karma": "~1.5.0",
+    "karma-cli": "~1.0.1",
+    "karma-jasmine": "~1.1.0",
+    "karma-phantomjs-launcher": "~1.0.2",
+    "phantomjs-prebuilt": "~2.1.14",
+    "uglify-js": "~2.8.5"
   }
 }
