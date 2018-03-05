@@ -7,7 +7,7 @@
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="fonts/fonts.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/prism/1.5.1/themes/prism-twilight.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/prism/1.5.1/themes/prism-twilight.css">
   <script src="grunticon/grunticon.loader.js"></script>
   <script>
     grunticon(["grunticon/icons.data.svg.css", "grunticon/icons.data.png.css", "grunticon/icons.fallback.css"]);
@@ -55,11 +55,14 @@ anchors.add('p');</code></pre>
     <p class="more-examples"><a href="#examples">See more examples</a></p>
     <div class="used-by">
       <h2 class="used-by-label">Used by</h2>
-      <a href="http://primercss.io/about/"><img src="https://avatars.githubusercontent.com/u/7143434?v=3&s=120" alt="Primer CSS Logo" title="PrimerCSS"/></a>
+      <!-- <a href="http://primercss.io/about/"><img src="https://avatars.githubusercontent.com/u/7143434?v=3&s=120" alt="Primer CSS Logo" title="PrimerCSS"/></a> -->
       <a href="http://getbootstrap.com/getting-started/"><img src="https://avatars.githubusercontent.com/u/2918581?v=3&s=120" alt="Bootstrap Logo" title="Bootstrap" /></a>
       <a href="http://eslint.org/docs/rules/"><img src="https://avatars.githubusercontent.com/u/6019716?v=3&s=120" alt="ESLint logo" title="ESLint"/></a>
+      <a href="https://frontend.18f.gov/"><img src="https://avatars.githubusercontent.com/u/6233994?v=3&s=120" alt="18F Logo" title="18F" /></a>
+      <a href="http://bundler.io/v1.15/guides/deploying.html"><img src="https://avatars.githubusercontent.com/u/1137638?v=3&s=120" alt="Bundler Logo" title="Bundler" /></a>
+      <a href="https://mochajs.org"><img src="https://avatars.githubusercontent.com/u/8770005?v=3&s=120" alt="Mocha Logo" title="Mocha" /></a>
       <a href="https://middlemanapp.com/basics/install/"><img src="https://avatars.githubusercontent.com/u/1280820?v=3&s=120" alt="Middleman logo" title="Middleman"/></a>
-      <a href="http://learn.getgrav.org/"><img src="https://avatars.githubusercontent.com/u/8237355?v=3&s=120" alt="Grav Logo" title="Grav" /></a>
+      <!-- <a href="http://learn.getgrav.org/"><img src="https://avatars.githubusercontent.com/u/8237355?v=3&s=120" alt="Grav Logo" title="Grav" /></a> -->
     </div>
   </header>
   <section class="main">
@@ -100,8 +103,8 @@ anchors.add('.anchored');
 
 /**
  * Example 3
- * If no selector is provided, it falls back to a default selector of
- * 'h1, h2, h3, h4, h5, h6' adding anchors to all headings.
+ * If no selector is provided, it falls back to a default selector of:
+ * 'h2, h3, h4, h5, h6'
  */
 anchors.add();</code></pre>
 
@@ -144,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           <td><code>visible</code></td>
           <td><code>hover</code> <br> <code>always</code> <br> <code>touch</code></td></td>
           <td><code>hover</code></td>
-          <td><code>hover</code> displays the anchor when hovering over the element.<br> <code>always</code> will always display the anchor link. <br> <code>touch</code> will always display links on touch devices, and only display them via hover on cursor devices.</td>
+          <td><code>hover</code> displays the anchor when hovering over the element.<br> <code>always</code> will always display the anchor link. <br> <code>touch</code> will <em>always</em> display anchors for devices that support touch events, and only display them via <em>hover</em> for devices that do not support touch events. This approximates touchscreen detection (but <a href="http://www.stucox.com/blog/you-cant-detect-a-touchscreen/">isn't 100% accurate</a>).</td>
         </tr>
         <tr>
           <td><code>icon</code></td>
@@ -160,9 +163,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
         </tr>
         <tr>
           <td><code>truncate</code></td>
-          <td>(any number)</td>
+          <td>(any positive number)</td>
           <td><code>64</code></td>
           <td>Truncates the generated ID to the specified character length. <small>Note: the length may not be exactly the same, if there are dangling spaces or hyphens to be trimmed.</small></td>
+        </tr>
+        <tr>
+          <td><code>ariaLabel</code></td>
+          <td>(any text)</td>
+          <td><code>Anchor</code></td>
+          <td>Allows you to customize or translate the default aria-label ("Anchor"), for screenreaders that encounter the link.</td>
         </tr>
       </tbody>
     </table>
@@ -178,32 +187,68 @@ anchors.add('#post h1, #post h2, #post h3');
 /**
  * Example 2
  * Provide options as an object before adding anchors to the page.
- * Adds always-visible ¶ anchors in the left margin of each paragraph tag inside .story
+ * Adds always-visible ¶ anchors in the left margin of each p tag inside .story
  */
 anchors.options = {
   placement: 'left',
   visible: 'always',
   icon: '¶'
 };
-anchors.add('.story > p');
-    </code></pre>
+anchors.add('.story > p');</code></pre>
 
     <h2>Advanced usage</h2>
+
+    <section id="section-ids">
+      <h3 data-anchor-id="section-ids">Section IDs</h3>
+      <p>In some cases, you might want to link to existing section IDs instead of the heading element itself. You can instruct AnchorJS to do this with the <code>data-anchor-id</code> attribute:</p>
+      <pre><code class="language-markup">&lt;section id="section-1"&gt;
+  &lt;h3 data-anchor-id="section-1"&gt;Section 1&lt;/h3&gt;
+  &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;!-- ... --&gt;
+
+&lt;script&gt;
+  anchors.add('h3');
+&lt;/script&gt;</code></pre>
+      <p>This allows you to do things like <a href="https://css-tricks.com/on-target/#article-header-id-3">highlight sections when your users jump to them</a>.</p>
+    </section>
+
     <h3>Removing anchors</h3>
-    <p>You can selectively remove anchors from the page by passing a selector to the <code>anchors.remove()</code> method, like so:</p>
+    <p>You can remove anchors with the <code>anchors.remove()</code> or <code>anchors.removeAll()</code> methods:</p>
     <pre class="src-js"><code>/**
  * Example 1
- * Add anchors to all h1s, except for those with a "no-anchor" class.
+ * Remove anchors from all h1s on the page.
  */
-anchors.add('h1');
-anchors.remove('.no-anchor');
+anchors.remove('h1');
 
 /**
  * Example 2
- * Add anchors to all h1s, then remove some by chaining methods.
+ * Remove all anchors from the page.
  */
-anchors.add('.h1').remove('.no-anchor');</pre></code>
-    <p>Additionally, you can remove all anchors with <code>anchors.removeAll()</code>.</p>
+anchors.removeAll();</pre></code>
+    <p>Removing anchors with <code>.remove()</code> should be uncommon. If you simply want anchors on a more selective group, consider using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not">the CSS <em>:not()</em> pseudo-class</a> when you add them, like so:</p>
+<pre class="src-js"><code>/**
+ * Example 2
+ * Add anchors to all h2s, except for those with a class of "no-anchor".
+ */
+anchors.add('h2:not(.no-anchor)');</pre></code>
+
+<h3>Chaining commands</h3>
+<p>You can chain commands of <code>add()</code> and <code>remove()</code> (since they return a copy of <code>anchors</code>), but it's usually more performant to lean on CSS when targeting elements:
+
+<pre class="src-js"><code>/**
+  * Example 1
+  * Adds anchors to `.my-anchors` and `.my-other-anchors` except for those
+  * with a class of `no-anchor`.
+  */
+ anchors.add('.my-anchors').add('.my-other-anchors').remove('.no-anchor');
+
+ /**
+  * Example 2
+  * A more performant way to add anchors to the same classes in Example 1 above.
+  */
+  anchors.add('.my-anchors:not(.no-anchor), .my-other-anchors:not(.no-anchor)');</code></pre>
 
     <h3>Multiple sets of anchors</h3>
     <p>You can have multiple sets of anchors on one page, each with their own design. To do so, just create your own instances of the AnchorJS object:</p>
@@ -660,7 +705,7 @@ anchors.add('h3');</code></pre>
   <script src="anchor.js"></script>
   <script src="scripts.js"></script>
   <script>
-    anchors.add('.main > h2, .main > h3').remove('.used-by-label');
+    anchors.add('.main > h2, .main > h3, .main > section > h2, .main > section > h3').remove('.used-by-label');
 
     var ex1 = new AnchorJS({ visible: 'always' });
     ex1.add('.examples .example:nth-child(1) h3, .preview-examples .example:nth-child(1) h3');
@@ -772,6 +817,6 @@ anchors.add('h3');</code></pre>
     var hovEx5 = new AnchorJS({ icon: 'Permalink' });
     hovEx5.add('.hover-examples .example:nth-child(5) h3');
   </script>
-  <script src="//cdn.jsdelivr.net/prism/1.5.1/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/prism/1.5.1/prism.js"></script>
 </body>
 </html>

@@ -30,6 +30,7 @@
      */
     function _applyRemainingDefaultOptions(opts) {
       opts.placement = opts.hasOwnProperty('placement') ? opts.placement : 'after'; // Also accepts 'before'
+      opts.ariaLabel = opts.hasOwnProperty('ariaLabel') ? opts.ariaLabel : 'Anchor'; // Accepts any text.
       opts.class = opts.hasOwnProperty('class') ? opts.class : ''; // Accepts any class name.
       // Using Math.floor here will ensure the value is Number-cast and an integer.
       opts.truncate = opts.hasOwnProperty('truncate') ? Math.floor(opts.truncate) : 64; // Accepts any value that can be typecast to a number.
@@ -68,7 +69,7 @@
       elements = _getElements(selector);
 
       if (elements.length === 0) {
-        return false;
+        return this;
       }
 
       // We produce a list of existing IDs so we don't generate a duplicate.
@@ -116,7 +117,7 @@
         anchor = document.createElement('a');
         anchor.className = 'anchorjs-link ' + this.options.class;
         anchor.href = '#' + elementID;
-        anchor.setAttribute('aria-label', 'Anchor link for: ' + readableID);
+        anchor.setAttribute('aria-label', this.options.ariaLabel);
 
         if (this.options.placement === 'before') {
           elements[i].insertBefore(anchor, elements[i].firstChild);
@@ -187,14 +188,14 @@
       }
 
       // Note: we trim hyphens after truncating because truncating can cause dangling hyphens.
-      // Example string:                                  // " ⚡⚡ Don't forget: URL fragments should be i18n-friendly, hyphenated, short, and clean."
-      urlText = text.trim()                               // "⚡⚡ Don't forget: URL fragments should be i18n-friendly, hyphenated, short, and clean."
-                    .replace(/\'/gi, '')                  // "⚡⚡ Dont forget: URL fragments should be i18n-friendly, hyphenated, short, and clean."
-                    .replace(nonsafeChars, '-')           // "⚡⚡-Dont-forget--URL-fragments-should-be-i18n-friendly--hyphenated--short--and-clean-"
-                    .replace(/-{2,}/g, '-')               // "⚡⚡-Dont-forget-URL-fragments-should-be-i18n-friendly-hyphenated-short-and-clean-"
-                    .substring(0, this.options.truncate)  // "⚡⚡-Dont-forget-URL-fragments-should-be-i18n-friendly-hyphenated-"
-                    .replace(/^-+|-+$/gm, '')             // "⚡⚡-Dont-forget-URL-fragments-should-be-i18n-friendly-hyphenated"
-                    .toLowerCase();                       // "⚡⚡-dont-forget-url-fragments-should-be-i18n-friendly-hyphenated"
+      // Example string:                      // " ⚡⚡ Don't forget: URL fragments should be i18n-friendly, hyphenated, short, and clean."
+      urlText = text.trim()                   // "⚡⚡ Don't forget: URL fragments should be i18n-friendly, hyphenated, short, and clean."
+        .replace(/\'/gi, '')                  // "⚡⚡ Dont forget: URL fragments should be i18n-friendly, hyphenated, short, and clean."
+        .replace(nonsafeChars, '-')           // "⚡⚡-Dont-forget--URL-fragments-should-be-i18n-friendly--hyphenated--short--and-clean-"
+        .replace(/-{2,}/g, '-')               // "⚡⚡-Dont-forget-URL-fragments-should-be-i18n-friendly-hyphenated-short-and-clean-"
+        .substring(0, this.options.truncate)  // "⚡⚡-Dont-forget-URL-fragments-should-be-i18n-friendly-hyphenated-"
+        .replace(/^-+|-+$/gm, '')             // "⚡⚡-Dont-forget-URL-fragments-should-be-i18n-friendly-hyphenated"
+        .toLowerCase();                       // "⚡⚡-dont-forget-url-fragments-should-be-i18n-friendly-hyphenated"
 
       return urlText;
     };
